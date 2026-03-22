@@ -290,18 +290,18 @@ export class LineToolFibRetracementPaneView<HorzScaleItem> extends LineToolPaneV
 		 * 3. `getToolCullingState` performs a robust intersection test on every 
 		 *    individual line, accounting for infinite extensions if enabled.
 		 */
-		const cullingState = getToolCullingState(
-			allLogicalPointsForCulling,
-			this._tool as BaseLineTool<HorzScaleItem>,
-			options.extend,
-			undefined,
-			cullingInfo
-		);
-
-		if (cullingState !== OffScreenState.Visible) {
-			//console.log('fib retracement culled')
-			return;
-		}
+		// CULLING DISABLED - buggy getToolCullingState incorrectly returns not-visible for visible tools
+			// const cullingState = getToolCullingState(
+			// 	allLogicalPointsForCulling,
+			// 	this._tool as BaseLineTool<HorzScaleItem>,
+			// 	options.extend,
+			// 	undefined,
+			// 	cullingInfo
+			// );
+			// if (cullingState !== OffScreenState.Visible) {
+			// 	//console.log('fib retracement culled')
+			// 	return;
+			// }
 		// --- CULLING END ---
 
 		const lineOptions: LineOptions = {
