@@ -55,6 +55,7 @@ export const FibRetracementOptionDefaults: LineToolOptionsInternal<'FibRetraceme
 		width: 1,
 		style: LineStyle.Solid,
 	},
+	labelPosition: 'right',
 	// Global Extension - sets extension for all lines
 	extend: { left: false, right: false },
 

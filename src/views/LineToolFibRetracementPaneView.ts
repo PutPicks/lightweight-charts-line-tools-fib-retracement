@@ -342,11 +342,19 @@ export class LineToolFibRetracementPaneView<HorzScaleItem> extends LineToolPaneV
 			const labelText = `${config.coeff} (${priceFormatter.format(levelPrice)})${distanceText}`;
 
 			const minX = Math.min(screenP0.x, screenP1.x);
-			const X_left_of_pane = 0 as Coordinate;
-			const X_min_segment = minX as Coordinate;
+			const maxX = Math.max(screenP0.x, screenP1.x);
+			const labelOnRight = (options as any).labelPosition === 'right';
 
-			const P_TextLeftAnchor = new AnchorPoint(X_left_of_pane, levelCoord, i);
-			const P_TextRightAnchor = new AnchorPoint(X_min_segment, levelCoord, i);
+			const P_TextLeftAnchor = new AnchorPoint(
+				labelOnRight ? (maxX as Coordinate) : (0 as Coordinate),
+				levelCoord,
+				i
+			);
+			const P_TextRightAnchor = new AnchorPoint(
+				labelOnRight ? (paneDrawingWidth as Coordinate) : (minX as Coordinate),
+				levelCoord,
+				i
+			);
 
 			const finalTextOptions: TextOptions = {
 				value: labelText,
@@ -354,13 +362,16 @@ export class LineToolFibRetracementPaneView<HorzScaleItem> extends LineToolPaneV
 				wordWrapWidth: 0,
 				forceTextAlign: false,
 				forceCalculateMaxLineWidth: false,
-				alignment: TextAlignment.Right,
+				alignment: labelOnRight ? TextAlignment.Left : TextAlignment.Right,
 				font: {
 					family: 'sans-serif', size: 12, bold: false, italic: false,
 					color: config.color,
 				},
 				box: {
-					alignment: { horizontal: BoxHorizontalAlignment.Right, vertical: BoxVerticalAlignment.Middle },
+					alignment: { 
+						horizontal: labelOnRight ? BoxHorizontalAlignment.Left : BoxHorizontalAlignment.Right, 
+						vertical: BoxVerticalAlignment.Middle 
+					},
 					padding: { x: 5, y: 3 },
 				}
 			} as TextOptions;
